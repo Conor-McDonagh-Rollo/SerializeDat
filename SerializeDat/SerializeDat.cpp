@@ -99,3 +99,32 @@ void SerializeDat::LoadToBuffer(const char* path)
         throw(e);
     }
 }
+
+void SerializeDat::AddToBuffer(Data data)
+{
+    dataBuffer.push_back(data);
+}
+
+void SerializeDat::SaveDataBuffer(const char* path)
+{
+    std::ofstream file(path, std::ofstream::out | std::ofstream::trunc);
+    
+    for (Data& d : dataBuffer)
+    {
+        file << ":" << d.node << ":";
+        for (int i : d.ints)
+        {
+            file << "#I" << i;
+        }
+        for (std::string s : d.strings)
+        {
+            file << "#S" << s;
+        }
+        for (bool b : d.bools)
+        {
+            file << "#B" << b;
+        }
+    }
+
+    file.close();
+}
