@@ -1,8 +1,20 @@
 #include "SerializeDat.h"
 
-Data SerializeDat::GetData(int index)
+Data& SerializeDat::GetData(int index)
 {
     return dataBuffer.at(index);
+}
+
+Data& SerializeDat::GetData(std::string node)
+{
+    for (Data& d : dataBuffer)
+    {
+        if (d.node == node)
+        {
+            return d;
+        }
+    }
+    return dataBuffer.at(0);
 }
 
 void SerializeDat::LoadToBuffer(const char* path)
@@ -11,6 +23,7 @@ void SerializeDat::LoadToBuffer(const char* path)
     try {
         file.open(path); // open the file
         char currentChar;
+        file.unsetf(std::ios_base::skipws);
         file >> currentChar; // begin to parse
         while (!file.eof()) // continue until we hit the EOF
         {
@@ -45,7 +58,6 @@ void SerializeDat::LoadToBuffer(const char* path)
             {
                 if (previousDatChar == 'I')
                 {
-                    file >> currentChar;
                     std::string str;
                     bool found = false;
                     while (!found)
@@ -59,7 +71,6 @@ void SerializeDat::LoadToBuffer(const char* path)
                 }
                 else if (previousDatChar == 'S')
                 {
-                    file >> currentChar;
                     std::string str;
                     bool found = false;
                     while (!found)
@@ -73,7 +84,6 @@ void SerializeDat::LoadToBuffer(const char* path)
                 }
                 else if (previousDatChar == 'B')
                 {
-                    file >> currentChar;
                     bool tf = false;
                     if (currentChar == '1') tf = true;
                     dataBuffer.at(currentIndex).bools.push_back(tf);
