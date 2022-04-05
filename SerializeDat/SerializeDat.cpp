@@ -17,7 +17,7 @@ Data& SerializeDat::GetData(std::string node)
     return dataBuffer.at(0);
 }
 
-void SerializeDat::LoadToBuffer(const char* path)
+void SerializeDat::Load(const char* path)
 {
     std::ifstream file;
     try {
@@ -88,6 +88,28 @@ void SerializeDat::LoadToBuffer(const char* path)
                     if (currentChar == '1') tf = true;
                     dataBuffer.at(currentIndex).bools.push_back(tf);
                 }
+                else if (previousDatChar == 'V')
+                {
+                    std::string vec[2];
+                    bool found = false;
+                    bool foundFirst = false;
+                    while (!found)
+                    {
+                        if (!foundFirst)
+                        {
+                            vec[0].push_back(currentChar);
+                            file >> currentChar;
+                            if (currentChar == ',') foundFirst = true;
+                        }
+                        else {
+                            vec[1].push_back(currentChar);
+                            file >> currentChar;
+                            if (currentChar == '#') found = true;
+                        }
+                    }
+                    dataBuffer.at(currentIndex).vector2s.push_back(Vec2(std::stoi(vec[0]), std::stoi(vec[1])));
+                    continue;
+                }
             }
 
             file >> currentChar;
@@ -100,12 +122,12 @@ void SerializeDat::LoadToBuffer(const char* path)
     }
 }
 
-void SerializeDat::AddToBuffer(Data data)
+void SerializeDat::Add(Data data)
 {
     dataBuffer.push_back(data);
 }
 
-void SerializeDat::SaveDataBuffer(const char* path)
+void SerializeDat::Save(const char* path)
 {
     std::ofstream file(path, std::ofstream::out | std::ofstream::trunc);
     
@@ -123,6 +145,10 @@ void SerializeDat::SaveDataBuffer(const char* path)
         for (bool b : d.bools)
         {
             file << "#B" << b;
+        }
+        for (Vec2 v : d.vector2s)
+        {
+            file << "#V" << v.x << "," << v.y;
         }
     }
 
