@@ -150,6 +150,7 @@ void SerializeDat::Save(const char* path)
         {
             file << "#V" << v.x << "," << v.y;
         }
+        file << "#";
     }
 
     file.close();

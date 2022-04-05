@@ -22,7 +22,7 @@ struct Data {
 	std::vector<Vec2> vector2s;
 };
 
-class SerializeDat
+typedef class SerializeDat
 {
 public:
 	int Size() { return dataBuffer.size(); }
@@ -40,5 +40,5 @@ private:
 	char previousDatChar = '0';
 
 	std::vector<Data> dataBuffer;
-};
+} Serialize;
 

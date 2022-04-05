@@ -3,96 +3,23 @@
 
 int main()
 {
-	SerializeDat data;
+	Serialize data;
 
-	data.LoadToBuffer("test.dat");
+	data.Load("test.dat");
 	
-	bool done = false;
-	int it = 0;
-	while (!done)
+	int test = 1;
+
+	if (test == 1)
 	{
-		std::cout << "Type 'done' to quit, else type 'cont'" << std::endl;
-		std::string s;
-		std::cin >> s;
-		if (s == "done" && it == 0)
-		{
-			done = true;
-			continue;
-		}
-		else if (s == "done")
-		{
-			done = true;
-			data.SaveDataBuffer("test.dat");
-			continue;
-		}
-		else if (s == "cont")
-		{
+		//data.Clear();
 
-			Data d;
-			std::cout << "Node name: ";
-			s.clear();
-			std::cin >> s;
-			d.node = s;
+		Data newdata;
+		newdata.node = "NewDataNode";
+		newdata.vector2s.push_back(Vec2(25,25));
 
-			bool doneAdding = false;
-			while (!doneAdding)
-			{
-				std::cout << "What would you like to add?\n1) int\n2) string\n3) bool\n4) done\n";
-				s.clear();
-				std::cin >> s;
-				if (s == "1")
-				{
-					int i;
-					std::cin >> i;
-					d.ints.push_back(i);
-				}
-				if (s == "2")
-				{
-					s.clear();
-					std::cin >> s;
-					d.strings.push_back(s);
-				}
-				if (s == "3")
-				{
-					int i;
-					std::cin >> i;
-					if (i == 1)
-					{
-						d.bools.push_back(true);
-					}
-					else if (i == 0)
-					{
-						d.bools.push_back(false);
-					}
-				}
-				if (s == "4")
-				{
-					doneAdding = true;
-				}
-			}
-
-			data.AddToBuffer(d);
-
-			it++;
-		}
+		data.Add(newdata);
+		data.Save("test.dat");
 	}
 
-	for (int i = 0; i < data.Size(); i++)
-	{
-		Data& d = data.GetData(i);
-		std::cout << d.node << std::endl;
-		for (int i : d.ints)
-		{
-			std::cout << i << std::endl;
-		}
-		for (std::string s : d.strings)
-		{
-			std::cout << s << std::endl;
-		}
-		for (bool b : d.bools)
-		{
-			std::cout << b << std::endl;
-		}
-		std::cout << "\n\n";
-	}
+	return 0;
 }
