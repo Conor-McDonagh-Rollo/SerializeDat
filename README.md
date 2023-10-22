@@ -2,6 +2,8 @@
 
 A lightweight serialization library for C++ projects.
 
+[![C/C++ CI](https://github.com/Conor-McDonagh-Rollo/SerializeDat/actions/workflows/c-cpp.yml/badge.svg?branch=main)](https://github.com/Conor-McDonagh-Rollo/SerializeDat/actions/workflows/c-cpp.yml)
+
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
