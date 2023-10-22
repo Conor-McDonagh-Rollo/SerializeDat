@@ -1,0 +1,8 @@
+# Ignore .vscode directory
+.vscode/
+
+# Ignore build directory
+build/
+
+# Ignore all .dat files
+*.dat
