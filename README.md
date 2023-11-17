@@ -87,4 +87,4 @@ Thank you for your understanding.
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 (GPLv3). For more details, please see the [LICENSE](LICENSE) file in this repository or visit [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
+This project is licensed under the MIT license, the software is provided "as is", without warranty of any kind. For more details, please see the [LICENSE](LICENSE) file in this repository.
